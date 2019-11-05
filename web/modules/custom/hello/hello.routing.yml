@@ -1,7 +1,17 @@
 hello.hello:
-  path: '/hello'
+  path: '/hello/{param}'
   defaults:
     _title: 'Hello'
     _controller: '\Drupal\hello\Controller\HelloController::content'
+    param: ''
+  requirements:
+    _access: 'TRUE'
+
+hello.noeuds:
+  path: '/hello/liste-noeuds/{nodetype}'
+  defaults:
+    _title: 'Liste noeuds'
+    _controller: '\Drupal\hello\Controller\ListeNoeudsController::content'
+    nodetype: ''
   requirements:
     _access: 'TRUE'
