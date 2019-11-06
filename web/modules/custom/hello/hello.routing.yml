@@ -15,3 +15,11 @@ hello.noeuds:
     nodetype: ''
   requirements:
     _access: 'TRUE'
+
+hello.user:
+   path: '/user/{user}/statistics'
+   defaults:
+     _title: 'Connection statistics'
+     _controller: '\Drupal\hello\Controller\UserController::content'
+   requirements:
+     _access: 'TRUE'

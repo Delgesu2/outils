@@ -9,3 +9,9 @@ hello.noeuds:
   route_name: hello.noeuds
   base_route: hello.hello
   weight: 2
+
+hello.user:
+  title: Connexions
+  route_name: hello.user
+  base_route: entity.user.canonical
+  weight: 4

@@ -9,6 +9,8 @@
 namespace Drupal\hello\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 /**
  * Class ListeNoeudsController
@@ -28,6 +30,26 @@ class ListeNoeudsController extends ControllerBase
      */
     public function content($nodetype = NULL)
     {
+        // Affichage types de contenu
+        $node_types = $this->entityTypeManager()->getStorage('node_type')->loadMultiple();
+
+        $node_type_items = [];
+
+        foreach ($node_types as $node_type) {
+
+            $url = new Url('hello.noeuds', ['nodetype' => $node_type->id()]);
+            $node_type_link = new Link($node_type->label(), $url);
+            $node_type_items[] = $node_type_link;
+
+        }
+
+        $node_type_list = [
+            '#theme' => 'item_list',
+            '#items' => $node_type_items,
+            '#title' => $this->t('Filter by node type')
+        ];
+
+
         // Manipuler les noeuds
         $node_storage = $this->entityTypeManager()->getStorage('node');
 
@@ -48,7 +70,7 @@ class ListeNoeudsController extends ControllerBase
         $items = [];
 
         foreach ($nodes as $node) {
-            $items[] = $node->toLink();
+            $items[] = $node->toLink();  // création des noeuds
         }
 
         $list = [
@@ -58,6 +80,6 @@ class ListeNoeudsController extends ControllerBase
 
         $pager = ['#type' => 'pager'];
 
-        return [$pager, $list];
+        return [$node_type_list, $list, $pager];
     }
 }
