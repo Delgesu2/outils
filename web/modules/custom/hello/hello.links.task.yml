@@ -15,3 +15,9 @@ hello.user:
   route_name: hello.user
   base_route: entity.user.canonical
   weight: 4
+
+hello.calculator:
+  title: Calculatrice
+  route_name: hello.form
+  base_route: hello.hello
+  weight: 5

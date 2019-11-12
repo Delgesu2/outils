@@ -18,6 +18,13 @@ function hello_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route
  */
 function hello_cron()
 {
+    $purge_days_number = \Drupal::config('hello.settings')->get('purge_days_number');
+    if ($purge_days_number != 0) {
+        \Drupal::database()->delete('hello_user_statistics')
+            ->condition('time', REQUEST_TIME - $purge_days_number * (24 * 3600), '<')
+            ->execute();
+    }
+
     \Drupal::messenger()->addMessage(t('Hello cron.'));
 }
 

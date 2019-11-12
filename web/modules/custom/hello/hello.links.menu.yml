@@ -3,3 +3,10 @@ hello.page:
   route_name: hello.hello
   description: 'Hello page'
   menu_name: main
+
+hello.admin_form:
+  title: 'Hello'
+  description: 'Hello module configuration page'
+  route_name: hello.admin_form
+  menu_name: admin
+  parent: system.admin_config

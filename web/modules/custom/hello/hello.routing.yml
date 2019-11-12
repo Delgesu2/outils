@@ -23,3 +23,19 @@ hello.user:
      _controller: '\Drupal\hello\Controller\UserController::content'
    requirements:
      _access: 'TRUE'
+
+hello.form:
+    path: '/hello/form'
+    defaults:
+      _title: 'Hello form'
+      _form: '\Drupal\hello\Form\HelloForm'
+    requirements:
+      _access: 'TRUE'
+
+hello.admin_form:
+    path: '/admin/config/hello'
+    defaults:
+      _title: 'User statistics'
+      _form: '\Drupal\hello\Form\AdminForm'
+    requirements:
+      _access: 'TRUE'
