@@ -2,7 +2,9 @@
 
 namespace Drupal\hello\Plugin\Block;
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Session\AccountInterface;
 
 /**
  * Class Countusers
@@ -39,4 +41,15 @@ class Countusers extends BlockBase
         return $build;
 
     }
+
+    /**
+     * @param AccountInterface $account
+     *
+     * @return AccessResult
+     */
+    protected function blockAccess(AccountInterface $account)
+    {
+        return AccessResult::allowedIfHasPermission($account, 'hello_permission');
+    }
+
 }

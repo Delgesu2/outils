@@ -156,6 +156,8 @@ class HelloForm extends FormBase
                 break;
         }
 
+        \Drupal::state()->set('hello_form_submission_time', REQUEST_TIME);
+
         //\Drupal::messenger()->addMessage($result);
 
         $form_state->addRebuildInfo('result', $result);

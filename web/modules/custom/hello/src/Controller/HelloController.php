@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\hello\Controller;
 
 use Drupal\Core\Controller\ControllerBase;

@@ -1,0 +1,7 @@
+hello_permission:
+  title: 'Hello permission'
+  description: 'Accès au compteur d_utilisateurs connectés'
+
+administer_hello:
+  title: 'Hello admin permission'
+  description: 'Accès à cette page restreint'

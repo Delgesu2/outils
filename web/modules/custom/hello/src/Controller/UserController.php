@@ -22,13 +22,18 @@ class UserController extends ControllerBase
 
 
             $connexions = [];
+            $countconnec = null;
+
+
 
             foreach ($connects as $connect) {
                 $connexions[] = [
                     $connect->action == 1 ? $this->t('Login') : $this->t('Logout'),
                     \Drupal::service('date.formatter')->format($connect->time),
+                     $countconnec += $connect->action
                 ];
             }
+
 
             $user_type_list = [
                 '#type' => 'table',
@@ -36,12 +41,29 @@ class UserController extends ControllerBase
                 '#rows' => $connexions
             ];
 
-            if (!empty ($user_type_list['#rows'])) {
-                return $user_type_list;
-            }
+            //Message en-tête
+            $message = [
+                '#theme' => 'hello_user_connexion',
+                '#user'  => $user,
+                '#count' => $countconnec,
+            ];
 
-            $build = ['#markup' => $this->t('Pas de connexions')];
-            return $build;
+
+        if (!empty ($user_type_list['#rows'])) {
+
+            // Render arrays
+            return [
+                'message' => $message,
+                'table' => $user_type_list,
+                '#cache' => [
+                    'max-age' => '0'
+                ]
+            ];
+
+        }
+
+        $build = ['#markup' => $this->t('Pas de connexions')];
+        return $build;
     }
 
 }
