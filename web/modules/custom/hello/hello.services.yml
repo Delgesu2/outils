@@ -4,3 +4,8 @@ services:
     tags:
       - { name: access_check, applies_to: _access_hello}
     arguments: ['@datetime.time']
+
+  hello.subscriber:
+    class: \Drupal\hello\Routing\HelloRoutingSubscriber
+    tags:
+      - { name: event_subscriber }

@@ -1,5 +1,7 @@
 <?php
 
+use \Drupal\Core\Form\FormStateInterface;
+
 /**
  * @param $route_name
  * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
@@ -84,4 +86,50 @@ function hello_theme($existing, $type, $theme, $path)
             ]
         ]
     ];
+}
+
+/**
+ * @param array $form
+ * @param FormStateInterface $form_state
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function hello_form_user_admin_settings_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state)
+{
+    $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+
+    unset($roles['anonymous']);
+
+    $options = [];
+    foreach ($roles as $role) {
+        $options[$role->id()] = $role->label();
+    }
+
+    $form['user_statistics'] = [
+        '#type'    => 'details',
+        '#title'   => t('Choose role to track'),
+        '#open'    => TRUE,
+        '#weight' => -1,
+    ];
+
+    $form['user_statistics']['options'] = [
+        '#type'          => 'checkboxes',
+        '#options'       => $options,
+        '#default_value' => \Drupal::config('hello.settings')->get('user_statistics_roles')
+    ];
+
+    $form['#submit'][] = 'hello_user_admin_settings_form_submit';
+
+}
+
+/**
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function hello_user_admin_settings_form_submit(array &$form, \Drupal\Core\Form\FormStateInterface $form_state)
+{
+    $options = $form_state->getValue('options');
+    \Drupal::configFactory()->getEditable('hello.settings')
+        ->set('user_statistics_roles', $options)->save();
 }
