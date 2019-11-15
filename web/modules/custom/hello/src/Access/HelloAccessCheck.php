@@ -55,9 +55,7 @@ class HelloAccessCheck implements AccessCheckInterface
     {
         $param = $route->getRequirement('_access_hello');
         $forbidden = AccessResult::forbidden();
-        $created = $account->getAccount()->created;
-
-        if (!$account->isAnonymous() && $created < ($this->time->getCurrentTime() - $param*3600 )) {
+        if (!$account->isAnonymous() && $account->getAccount()->created < ($this->time->getCurrentTime() - $param*3600 )) {
                 return AccessResult::allowed()->cachePerUser();
             }
 
