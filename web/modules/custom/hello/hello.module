@@ -34,28 +34,49 @@ function hello_cron()
  * @param \Drupal\user\UserInterface $account
  *
  * @throws Exception
+ *
+ * Message de bienvenue. Enregistre la connexion dans BDD si utilisateur possède
+ * le rôle suivi par admin.
  */
 function hello_user_login(\Drupal\user\UserInterface $account)
 {
-    \Drupal::messenger()->addMessage(t('Bienvenue %name',
-        ['%name'=>$account->getAccountName()]));
+    $roles = \Drupal::config('hello.settings')->get('user_statistics_roles');
+    $user_roles = $account->getRoles();
+    $diff = array_intersect($roles, $user_roles);
 
-    $data = \Drupal::database()->insert('hello_user_statistics')
-        ->fields([
-            'uid'    => $account->id(),
-            'action' => '1',
-            'time'   => REQUEST_TIME,
-        ])
+        \Drupal::messenger()->addMessage(t('Bienvenue %name',
+            ['%name' => $account->getAccountName()]));
+
+    if (count($diff) > 0) {
+
+        $data = \Drupal::database()->insert('hello_user_statistics')
+            ->fields([
+                'uid' => $account->id(),
+                'action' => '1',
+                'time' => REQUEST_TIME,
+            ])
+
         ->execute();
+
+       }
 }
 
 /**
  * @param \Drupal\Core\Session\AccountProxy $account
  *
  * @throws Exception
+ *
+ * Si rôle utilisateur traqué, 0 en BDD .
  */
 function hello_user_logout(\Drupal\Core\Session\AccountProxy $account)
 {
+    $roles = \Drupal::config('hello.settings')->get('user_statistics_roles');
+    $user_roles = $account->getRoles();
+    $diff = array_intersect($roles, $user_roles);
+
+    if (count($diff) > 0) {
+
+
    $data = \Drupal::database()->insert('hello_user_statistics')
        ->fields([
            'uid'    => $account->id(),
@@ -63,6 +84,8 @@ function hello_user_logout(\Drupal\Core\Session\AccountProxy $account)
            'time'   => REQUEST_TIME,
        ])
        ->execute();
+    }
+
 }
 
 /**

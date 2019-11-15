@@ -43,6 +43,9 @@ class HelloAccessCheck implements AccessCheckInterface
      * @param AccountInterface $account
      *
      * @return \Drupal\Core\Access\AccessResultAllowed|\Drupal\Core\Access\AccessResultForbidden
+     *
+     * Autorisation de voir statistique si utilisateur inscrit
+     * depuis plus de 48 heures
      */
     public function access(
         Route $route,
