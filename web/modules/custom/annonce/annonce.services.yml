@@ -1,0 +1,6 @@
+services:
+  annonce.event_subscriber:
+    class: \Drupal\annonce\EventSubscriber\AnnonceEventSubscriber
+    tags:
+      - { name: event_subscriber }
+    arguments: ['@current_user', '@current_route_match', '@database', '@datetime.time']
