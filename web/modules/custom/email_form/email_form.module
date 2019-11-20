@@ -18,6 +18,9 @@ function email_form_mail($key, &$message, $params)
     }
 }
 
+/**
+ * @param NodeInterface $node
+ */
 function email_form_node_update(NodeInterface $node)
 {
     $emails = \Drupal::database()->select('email_form_node_subscriber', 'efns')
