@@ -1,0 +1,32 @@
+<?php
+
+use Drupal\node\NodeInterface;
+
+/**
+ * @param $key
+ * @param $message
+ * @param $params
+ */
+function email_form_mail($key, &$message, $params)
+{
+    switch ($key) {
+        case 'node_mail':
+            $message['from'] = 'youpi@gmail.com';
+            $message['subject'] = t('Node update.');
+            $message['body'] = t('test');
+            break;
+    }
+}
+
+function email_form_node_update(NodeInterface $node)
+{
+    $emails = \Drupal::database()->select('email_form_node_subscriber', 'efns')
+        ->fields('efns', ['email'])
+        ->condition('nid', $node->id())
+        ->execute();
+
+    $mail_manager = \Drupal::service('plugin.manager.mail');
+    foreach ($emails as $email) {
+        $mail_manager->mail('email_form', 'node_mail', $email->email, 'en', [], NULL, TRUE);
+    }
+}
