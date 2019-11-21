@@ -1,0 +1,10 @@
+uuid: ac1e64dd-ad05-4b00-9c00-3ccc5572c4f1
+langcode: fr
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.token
+label: 'Jeton (token)'
+targetEntityType: taxonomy_term
+cache: true

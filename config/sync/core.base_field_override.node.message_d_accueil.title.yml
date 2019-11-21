@@ -1,0 +1,18 @@
+uuid: e9813bb5-2ea7-47fa-b6eb-15154b9cab55
+langcode: fr
+status: true
+dependencies:
+  config:
+    - node.type.message_d_accueil
+id: node.message_d_accueil.title
+field_name: title
+entity_type: node
+bundle: message_d_accueil
+label: 'Message accueil'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

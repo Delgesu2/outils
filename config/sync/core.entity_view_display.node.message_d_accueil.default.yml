@@ -1,0 +1,29 @@
+uuid: 0870d376-1309-4ddb-8750-daefe4526434
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.node.message_d_accueil.body
+    - node.type.message_d_accueil
+  module:
+    - text
+    - user
+id: node.message_d_accueil.default
+targetEntityType: node
+bundle: message_d_accueil
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  langcode: true

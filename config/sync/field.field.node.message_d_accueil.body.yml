@@ -1,0 +1,22 @@
+uuid: 9b67152f-a0f0-4f55-8fd2-d19431191705
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.message_d_accueil
+  module:
+    - text
+id: node.message_d_accueil.body
+field_name: body
+entity_type: node
+bundle: message_d_accueil
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

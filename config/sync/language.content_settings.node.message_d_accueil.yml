@@ -1,0 +1,11 @@
+uuid: f3af3d33-8e0f-40a0-8fb0-2b4ccdfa51e4
+langcode: fr
+status: true
+dependencies:
+  config:
+    - node.type.message_d_accueil
+id: node.message_d_accueil
+target_entity_type_id: node
+target_bundle: message_d_accueil
+default_langcode: site_default
+language_alterable: false
