@@ -15,6 +15,14 @@ function hello_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route
     }
 }
 
+function hello_form_alter(array &$form, FormStateInterface $form_state, $form_id)
+{ // ksm($form_id);
+    if ($form_id == 'node_article_form') {
+        // ksm($form);
+        $form['revision_log']['#access'] = FALSE;
+    }
+}
+
 /**
  * Fonction cron
  */
